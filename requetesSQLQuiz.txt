@@ -1,0 +1,60 @@
+DROP TABLE IF EXISTS
+    membre;
+CREATE TABLE membre(
+    id_membre_membre INT AUTO_INCREMENT NOT NULL,
+    pseudo_questionnaire VARCHAR(20),
+    email_questionnaire VARCHAR(25),
+    mdp_questionnaire VARCHAR(10),
+    date_inscript_questionnaire DATE,
+    statut_questionnaire INT(3),
+    PRIMARY KEY(id_membre_membre)
+) ENGINE = InnoDB; DROP TABLE IF EXISTS
+    questions;
+CREATE TABLE questions(
+    id_questions_questions INT AUTO_INCREMENT NOT NULL,
+    libellé_questions VARCHAR(100),
+    choix_questions VARCHAR(25),
+    id_quiz_questionnaire INT(20),
+    PRIMARY KEY(id_questions_questions)
+) ENGINE = InnoDB; DROP TABLE IF EXISTS
+    questionnaire;
+CREATE TABLE questionnaire(
+    id_quiz_questionnaire INT(20) AUTO_INCREMENT NOT NULL,
+    titre_quiz_questionnaire VARCHAR(25),
+    date_crea_questionnaire DATE,
+    date_modif_questionnaire DATE,
+    id_categories_categories INT(20),
+    id_membre_membre INT(20),
+    PRIMARY KEY(id_quiz_questionnaire)
+) ENGINE = InnoDB; DROP TABLE IF EXISTS
+    categories;
+CREATE TABLE categories(
+    id_categories_categories INT(25) AUTO_INCREMENT NOT NULL,
+    nom_categories VARCHAR(25),
+    PRIMARY KEY(id_categories_categories)
+) ENGINE = InnoDB; DROP TABLE IF EXISTS
+    note;
+CREATE TABLE note(
+    id_note_note INT(25) AUTO_INCREMENT NOT NULL,
+    valeur_note INT(25),
+    PRIMARY KEY(id_note_note)
+) ENGINE = InnoDB; DROP TABLE IF EXISTS
+    reçoit;
+CREATE TABLE reçoit(
+    id_quiz_questionnaire INT(20) AUTO_INCREMENT NOT NULL,
+    id_note_note INT(20) NOT NULL,
+    compteur_reçoit INT,
+    PRIMARY KEY(
+        id_quiz_questionnaire,
+        id_note_note
+    )
+) ENGINE = InnoDB; ALTER TABLE
+    questions ADD CONSTRAINT FK_questions_id_quiz_questionnaire FOREIGN KEY(id_quiz_questionnaire) REFERENCES questionnaire(id_quiz_questionnaire);
+ALTER TABLE
+    questionnaire ADD CONSTRAINT FK_questionnaire_id_categories_categories FOREIGN KEY(id_categories_categories) REFERENCES categories(id_categories_categories);
+ALTER TABLE
+    questionnaire ADD CONSTRAINT FK_questionnaire_id_membre_membre FOREIGN KEY(id_membre_membre) REFERENCES membre(id_membre_membre);
+ALTER TABLE
+    reçoit ADD CONSTRAINT FK_reçoit_id_quiz_questionnaire FOREIGN KEY(id_quiz_questionnaire) REFERENCES questionnaire(id_quiz_questionnaire);
+ALTER TABLE
+    reçoit ADD CONSTRAINT FK_reçoit_id_note_note FOREIGN KEY(id_note_note) REFERENCES note(id_note_note);

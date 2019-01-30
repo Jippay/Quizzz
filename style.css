@@ -1,0 +1,21 @@
+.navbar{
+    justify-content: space-between;;
+}
+
+.mx-auto{
+    width: 70%;
+    border: none;
+}
+h1{
+    margin: 1em 0 0 1em;
+}
+.container1{
+    margin: 2em;
+    border: 2px solid rgb(55, 156, 223);
+    border-radius: 5px;
+    padding: 1em;
+}
+
+.txtInscrit{
+    text-align: center;
+}
